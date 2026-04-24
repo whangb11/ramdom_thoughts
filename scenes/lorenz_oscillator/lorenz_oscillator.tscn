@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b6y23a3laylm2"]
+
+[ext_resource type="Script" uid="uid://dd8w5lbum4qt4" path="res://scenes/lorenz_oscillator/lorenz_oscillator.gd" id="1_4bboa"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pgx6p"]
+
+[node name="LorenzOscillator" type="GPUParticles3D" unique_id=783240227]
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_pgx6p")
+script = ExtResource("1_4bboa")

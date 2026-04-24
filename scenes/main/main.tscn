@@ -1,7 +1,40 @@
 [gd_scene format=3 uid="uid://bbrvvcdex3yg4"]
 
-[ext_resource type="PackedScene" uid="uid://tbr48dcbwcsj" path="res://assets/blender/gun.blend" id="1_hyk8p"]
+[ext_resource type="PackedScene" uid="uid://cvgxuhli7fryu" path="res://scenes/player/player.tscn" id="1_hyk8p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vom5j"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hyk8p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iuonh"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="Environment" id="Environment_hyk8p"]
+ambient_light_color = Color(0.5018902, 0.48563778, 0.59614956, 1)
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
 
 [node name="Node3D" type="Node3D" unique_id=1456072781]
 
-[node name="gun" parent="." unique_id=708975173 instance=ExtResource("1_hyk8p")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1595905353]
+mesh = SubResource("BoxMesh_vom5j")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="MeshInstance3D" unique_id=1752462793]
+disable_mode = 1
+physics_material_override = SubResource("PhysicsMaterial_hyk8p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/RigidBody3D" unique_id=53548750]
+shape = SubResource("BoxShape3D_iuonh")
+
+[node name="Player" parent="MeshInstance3D" unique_id=1183206436 instance=ExtResource("1_hyk8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6312919, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=689039245]
+environment = SubResource("Environment_hyk8p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=126045715]
+transform = Transform3D(0.6394927, -0.56797564, 0.5181243, 0, 0.67394143, 0.7387848, -0.76879716, -0.47244748, 0.43098062, 0, 2.861813, 0)

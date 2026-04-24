@@ -16,7 +16,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("movement_left", "movement_right", "movement_fore", "movement_back")
-	var direction := Vector3(input_dir.x, Input.get_axis("movement_down","movement_up"), input_dir.y).normalized() * cam_pivot.quaternion * cam.quaternion
+	var direction := Vector3(input_dir.x, Input.get_axis("movement_down","movement_up"), input_dir.y).normalized()
+	direction = cam_pivot.quaternion * direction
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.y = direction.y * SPEED
@@ -27,3 +28,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_action_pressed("toggle_aim"):
+		pass

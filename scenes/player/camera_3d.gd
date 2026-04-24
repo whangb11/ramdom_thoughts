@@ -5,8 +5,7 @@ const MOUSE_SENSITIVITY:float = 0.005
 const MAX_PITCH_ANGLE:float = 85.0
 
 func _ready():
-	pass
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _input(event: InputEvent) -> void:

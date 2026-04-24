@@ -3,8 +3,41 @@
 [ext_resource type="Script" uid="uid://baq1ks7nqtx01" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Script" uid="uid://lfuly2o0cmtn" path="res://scenes/player/camera_3d.gd" id="2_dovo2"]
 [ext_resource type="PackedScene" uid="uid://df3fwohia1cdo" path="res://scenes/player/gun.tscn" id="3_gmlin"]
+[ext_resource type="AnimationLibrary" uid="uid://cdqhljan5sff1" path="res://assets/animation/player.tres" id="4_lvxji"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7p2l"]
+
+[sub_resource type="Animation" id="Animation_lvxji"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.34, -0.4, -0.835)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/gun:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.34]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p47bc"]
+_data = {
+&"RESET": SubResource("Animation_lvxji")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1183206436]
 script = ExtResource("1_8afob")
@@ -20,7 +53,9 @@ rotation_edit_mode = 1
 current = true
 script = ExtResource("2_dovo2")
 
-[node name="gun" parent="Pivot" unique_id=2033668071 instance=ExtResource("3_gmlin")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.4, -0.835)
+[node name="gun" parent="Pivot" unique_id=1645974178 instance=ExtResource("3_gmlin")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.34, -0.4, -0.835)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=514409733]
+libraries/ = SubResource("AnimationLibrary_p47bc")
+libraries/player = ExtResource("4_lvxji")

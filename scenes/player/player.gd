@@ -7,6 +7,8 @@ const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY:float = 0.005
 const MAX_PITCH_ANGLE:float = 85.0
 
+var is_aimming:bool = false
+
 @onready var cam_pivot:Node3D = $Pivot
 @onready var cam:Camera3D = $Pivot/Camera3D
 

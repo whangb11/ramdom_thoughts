@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvgxuhli7fryu" path="res://scenes/player/player.tscn" id="1_hyk8p"]
 [ext_resource type="Environment" uid="uid://b1v7a34dgltjk" path="res://assets/environment/base_environment.tres" id="2_iuonh"]
+[ext_resource type="PackedScene" uid="uid://b6y23a3laylm2" path="res://scenes/lorenz_oscillator/lorenz_oscillator.tscn" id="3_k2fmo"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vom5j"]
 size = Vector3(10, 1, 10)
@@ -38,3 +39,6 @@ environment = ExtResource("2_iuonh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=126045715]
 transform = Transform3D(0.6394927, -0.56797564, 0.5181243, 0, 0.67394143, 0.7387848, -0.76879716, -0.47244748, 0.43098062, 0, 2.861813, 0)
+
+[node name="LorenzOscillator" parent="." unique_id=783240227 instance=ExtResource("3_k2fmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.564246, 1.1835573, 0)

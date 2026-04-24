@@ -27,17 +27,20 @@ shader_parameter/noise = SubResource("NoiseTexture2D_x33p7")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kdwl"]
 emission_enabled = true
 emission = Color(0.84612125, 0.3381264, 0.7554476, 1)
+disable_receive_shadows = true
+billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_x33p7"]
 material = SubResource("StandardMaterial3D_0kdwl")
 
 [node name="LorenzOscillator" type="GPUParticles3D" unique_id=783240227]
-amount = 5000
-lifetime = 100.0
-one_shot = true
-preprocess = 5.0
-explosiveness = 1.0
+amount = 1000
+lifetime = 10.0
+explosiveness = 0.5
+randomness = 0.03
 fixed_fps = 60
+visibility_aabb = AABB(-10, -10, -10, 20, 20, 20)
+draw_order = 1
 process_material = SubResource("ShaderMaterial_x33p7")
 draw_pass_1 = SubResource("QuadMesh_x33p7")
 script = ExtResource("1_4bboa")

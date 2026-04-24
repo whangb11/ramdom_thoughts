@@ -1,11 +1,12 @@
 extends Camera3D
 
-
+@export var capture_mouse:bool = true
 const MOUSE_SENSITIVITY:float = 0.005
 const MAX_PITCH_ANGLE:float = 85.0
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if capture_mouse:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _input(event: InputEvent) -> void:

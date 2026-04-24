@@ -11,10 +11,11 @@ var is_aimming:bool = false
 
 @onready var cam_pivot:Node3D = $Pivot
 @onready var cam:Camera3D = $Pivot/Camera3D
-
+@onready var anim_player:AnimationPlayer = $AnimationPlayer
 
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("movement_left", "movement_right", "movement_fore", "movement_back")
@@ -33,4 +34,8 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_action_pressed("toggle_aim"):
-		pass
+		if is_aimming:
+			anim_player.play("player/out_aim")
+		else:
+			anim_player.play("player/in_aim")
+		is_aimming = not is_aimming

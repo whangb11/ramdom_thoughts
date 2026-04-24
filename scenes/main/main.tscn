@@ -16,10 +16,16 @@ size = Vector3(10, 1, 10)
 
 [node name="Node3D" type="Node3D" unique_id=1456072781]
 
+[node name="LorenzOscillator" parent="." unique_id=783240227 instance=ExtResource("3_k2fmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.297001, 2.2317474, -0.93408155)
+amount = 600
+visibility_aabb = AABB(-30, -30, -30, 60, 60, 60)
+
 [node name="Player" parent="." unique_id=1183206436 instance=ExtResource("1_hyk8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6312919, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1595905353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.6690025, 0)
 mesh = SubResource("BoxMesh_vom5j")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="MeshInstance3D" unique_id=1752462793]
@@ -39,6 +45,3 @@ environment = ExtResource("2_iuonh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=126045715]
 transform = Transform3D(0.6394927, -0.56797564, 0.5181243, 0, 0.67394143, 0.7387848, -0.76879716, -0.47244748, 0.43098062, 0, 2.861813, 0)
-
-[node name="LorenzOscillator" parent="." unique_id=783240227 instance=ExtResource("3_k2fmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.564246, 1.1835573, 0)

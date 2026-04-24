@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://tbr48dcbwcsj" path="res://assets/blender/gun.blend" id="1_ae5e1"]
 [ext_resource type="PackedScene" uid="uid://boooh2fngfy3p" path="res://scenes/player/scope.tscn" id="2_j0ebl"]
 
-[node name="gun" unique_id=1645974178 instance=ExtResource("1_ae5e1")]
+[node name="gun" unique_id=1352910087 instance=ExtResource("1_ae5e1")]
 
 [node name="Scope" parent="." index="1" unique_id=1568354960 instance=ExtResource("2_j0ebl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3744892, 0)

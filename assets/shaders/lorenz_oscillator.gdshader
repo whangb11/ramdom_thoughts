@@ -17,33 +17,70 @@ vec3 lorenz(vec3 p) {
 }
 
 // 4阶龙格‑库塔积分
-vec3 rk4(vec3 pos, float step) {
+vec3 rk4(vec3 pos, float pstep) {
 	vec3 k1 = lorenz(pos);
-	vec3 mid = pos + 0.5 * step * k1;
+	vec3 mid = pos + 0.5 * pstep * k1;
 	vec3 k2 = lorenz(mid);
-	mid = pos + 0.5 * step * k2;
+	mid = pos + 0.5 * pstep * k2;
 	vec3 k3 = lorenz(mid);
-	vec3 end_p = pos + step * k3;
+	vec3 end_p = pos + pstep * k3;
 	vec3 k4 = lorenz(end_p);
-	return pos + (step / 6.0) * (k1 + 2.0*k2 + 2.0*k3 + k4);
+	return pos + (pstep / 6.0) * (k1 + 2.0*k2 + 2.0*k3 + k4);
+}
+
+float rand_from_id(uint id) {
+	return fract(sin(float(id) * 12.9898) * 43758.5453);
 }
 
 void start() {
-	vec3 base_offset = texture(noise,vec2(sin(float(RANDOM_SEED)),cos(float(RANDOM_SEED)))).rgb;
-	TRANSFORM[3].xyz = base_offset + vec3(-0.5);
-	COLOR = vec4(1.0);// 初始颜色
+	vec3 init_pos = vec3(
+		3.0 + (rand_from_id(RANDOM_SEED) - 0.5) * 2.0,
+		5.0 + (rand_from_id(RANDOM_SEED + 1u) - 0.5) * 2.0,
+		20.2 + (rand_from_id(RANDOM_SEED + 2u) - 0.5) * 2.0
+	);
+	CUSTOM.x = init_pos.x;
+	CUSTOM.y = init_pos.y;
+	CUSTOM.z = init_pos.z;
+	CUSTOM.w = 0.0f;
+	COLOR = vec4(1.0, 0.5, 0.2, 1.0);
 }
 
 void process() {
-	vec3 pos = TRANSFORM[3].xyz;
-	float remaining = DELTA;          // 本帧剩余时间
-	// 子步循环，确保无论帧率如何都使用固定步长 h
-	for (int i = 0; i < 200; i++) {  // 200 是安全上限，避免死循环
-		if (remaining <= 0.0) break;
-		float step = min(h, remaining);
-		pos = rk4(pos, step);
-		remaining -= step;
+	vec3 pos = CUSTOM.xyz;
+	float accum = CUSTOM.w;
+
+	// 累积本帧经过的时间
+	accum += DELTA;
+
+	// 计算需要执行的子步数（最多 100 步，防止单帧过长）
+	const int MAX_STEPS = 100;
+	int steps = int(accum / h);
+	steps = min(steps,MAX_STEPS);
+
+	float used_time = float(steps) * h;
+	accum -= used_time;   // 保留未用完的剩余时间
+
+	// 循环执行子步
+	for (int i = 0; i < MAX_STEPS; i++) {
+		if (i < steps) {
+			pos = rk4(pos, h);
+		}
 	}
-	TRANSFORM[3].xyz = pos;           // 更新粒子位置
-	VELOCITY = vec3(0.0);             // 禁止系统内置运动干扰
+
+	// 写回新状态
+	CUSTOM = vec4(pos, accum);
+
+	// 将粒子放置在计算出的世界坐标
+	TRANSFORM = mat4(
+		vec4(1.0, 0.0, 0.0, 0.0),
+		vec4(0.0, 1.0, 0.0, 0.0),
+		vec4(0.0, 0.0, 1.0, 0.0),
+		vec4(pos, 1.0)
+	);
+
+	// 根据当前速度（洛伦兹导数）映射颜色，速度低偏蓝，速度高偏红
+	vec3 vel = lorenz(pos);
+	float speed = length(vel);
+	vec3 col = mix(vec3(0.2, 0.5, 1.0), vec3(1.0, 0.2, 0.2), clamp(speed / 50.0, 0.0, 1.0));
+	COLOR = vec4(col, 1.0);
 }

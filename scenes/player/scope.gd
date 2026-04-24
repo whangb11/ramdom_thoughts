@@ -1,6 +1,6 @@
 extends MeshInstance3D
 
-const CAMERA_OFFSET := Vector3(0.53, 0, 0)
+const CAMERA_OFFSET := Vector3(0.52, 0, 0)
 const ZOOM_SPEED:float = 0.5
 const MIN_ZOOM:float = 1.0
 const MAX_ZOOM:float = 32.0

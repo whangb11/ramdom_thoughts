@@ -11,9 +11,12 @@ const MAX_PITCH_ANGLE:float = 85.0
 @onready var cam:Camera3D = $Pivot/Camera3D
 
 
+func _process(delta: float) -> void:
+	pass
+
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("movement_left", "movement_right", "movement_fore", "movement_back")
-	var direction := Vector3(input_dir.x, Input.get_axis("movement_down","movement_up"), input_dir.y).normalized() * cam_pivot.quaternion
+	var direction := Vector3(input_dir.x, Input.get_axis("movement_down","movement_up"), input_dir.y).normalized() * cam_pivot.quaternion * cam.quaternion
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.y = direction.y * SPEED

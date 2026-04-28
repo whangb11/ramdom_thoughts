@@ -1,6 +1,6 @@
 shader_type particles;
-
-uniform float h = 0.005;
+render_mode keep_data;
+uniform float h = 0.002;
 uniform sampler2D noise;
 
 const float sigma = 10.0f;
@@ -34,18 +34,24 @@ float rand_from_id(uint id) {
 
 void start() {
 	vec3 init_pos = vec3(
-		3.0 + (rand_from_id(RANDOM_SEED) - 0.5) * 2.0,
-		5.0 + (rand_from_id(RANDOM_SEED + 1u) - 0.5) * 2.0,
-		20.2 + (rand_from_id(RANDOM_SEED + 2u) - 0.5) * 2.0
+	3.0 + (rand_from_id(RANDOM_SEED) - 0.5) * 5.0,
+	5.0 + (rand_from_id(RANDOM_SEED + 1u) - 0.5) * 5.0,
+	20.2 + (rand_from_id(RANDOM_SEED + 2u) - 0.5) * 5.0
 	);
-	CUSTOM.x = init_pos.x;
-	CUSTOM.y = init_pos.y;
-	CUSTOM.z = init_pos.z;
-	CUSTOM.w = 0.0f;
+	CUSTOM = vec4(init_pos,0.0f);
 	COLOR = vec4(1.0, 0.5, 0.2, 1.0);
 }
 
 void process() {
+//	if(RESTART){
+//		vec3 init_pos = vec3(
+//		3.0 + (rand_from_id(RANDOM_SEED) - 0.5) * 2.0,
+//		5.0 + (rand_from_id(RANDOM_SEED + 1u) - 0.5) * 2.0,
+//		20.2 + (rand_from_id(RANDOM_SEED + 2u) - 0.5) * 2.0
+//		);
+//		CUSTOM = vec4(init_pos,0.0f);
+//		COLOR = vec4(1.0, 0.5, 0.2, 1.0);
+//	}
 	vec3 pos = CUSTOM.xyz;
 	float accum = CUSTOM.w;
 
